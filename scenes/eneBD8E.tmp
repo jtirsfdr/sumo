@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgyhysss0ag7e"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_tclc7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8x7ej"]
+albedo_color = Color(0.8, 0.392, 0.392, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0xub3"]
+material = SubResource("StandardMaterial3D_8x7ej")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aliax"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ea8cr"]
+radius = 15.0
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_tclc7")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_0xub3")
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_aliax")
+
+[node name="Range" type="Area3D" parent="."]
+
+[node name="RangeCollider" type="CollisionShape3D" parent="Range"]
+shape = SubResource("SphereShape3D_ea8cr")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(3, 0, 0)
+debug_shape_custom_color = Color(0.7506, 0.81, 0.4536, 1)
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="Range" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Range" to="." method="_on_area_3d_area_exited"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

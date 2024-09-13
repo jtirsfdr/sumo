@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0qt88e47n5ob"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_6dyva"]
+[ext_resource type="PackedScene" uid="uid://dgyhysss0ag7e" path="res://scenes/enemy.tscn" id="3_xfdxs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ub267"]
+sky_top_color = Color(0.65, 0.572, 0.533, 1)
+sky_horizon_color = Color(0.615686, 0.670588, 0.760784, 1)
+sky_curve = 0.0461679
+ground_bottom_color = Color(0.1722, 0.215797, 0.41, 1)
+ground_horizon_color = Color(0.6156, 0.670953, 0.76, 1)
+
+[sub_resource type="Sky" id="Sky_hwm1n"]
+sky_material = SubResource("ProceduralSkyMaterial_ub267")
+
+[sub_resource type="Environment" id="Environment_ox4ej"]
+background_mode = 2
+sky = SubResource("Sky_hwm1n")
+
+[sub_resource type="Gradient" id="Gradient_dedb7"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.238095, 0.285714)
+colors = PackedColorArray(0.29375, 0.5, 0.225, 1, 0, 0, 0, 1, 0.76, 0.3952, 0.304, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fsirh"]
+gradient = SubResource("Gradient_dedb7")
+width = 1024
+height = 1024
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xjkd"]
+albedo_texture = SubResource("GradientTexture2D_fsirh")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5kogj"]
+material = SubResource("StandardMaterial3D_3xjkd")
+top_radius = 15.0
+bottom_radius = 15.0
+height = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_tfc6f"]
+height = 0.5
+radius = 15.0
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_6dyva")
+
+[node name="Enemy" parent="." instance=ExtResource("3_xfdxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67955, 4.01823, 0)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_xfdxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.75586, 3.00488, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="DemoCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.81811, 0.575062, 0, -0.575062, 0.81811, 0.315176, 7.15198, 18.1222)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ox4ej")
+
+[node name="Platform" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
+mesh = SubResource("CylinderMesh_5kogj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
+shape = SubResource("CylinderShape3D_tfc6f")
