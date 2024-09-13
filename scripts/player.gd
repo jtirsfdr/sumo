@@ -5,6 +5,7 @@ var enemy_node
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+var air_accel = 30
 
 signal hit
 
@@ -31,14 +32,19 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		if not is_on_floor(): #slower acceleration in the air
+			velocity.x = move_toward(velocity.x, direction.x * SPEED, SPEED/air_accel)
+			velocity.z = move_toward(velocity.z, direction.z * SPEED, SPEED/air_accel)
+		else:
+			velocity.x = move_toward(velocity.x, direction.x * SPEED, SPEED)
+			velocity.z = move_toward(velocity.z, direction.z * SPEED, SPEED)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED/air_accel)
+		velocity.z = move_toward(velocity.z, 0, SPEED/air_accel)
 	
 	if Input.is_action_just_pressed("attack"):
 		if $RayCast3D.is_colliding():
 			print("hit")
+
 			
 	move_and_slide()
