@@ -6,21 +6,21 @@ var enemy_node
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var air_accel = 30
-
-signal hit
+var invincible = false
+var target
+signal hit_opponent
 
 func _ready():
-	pass
-	#camera.make_current()
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	camera.make_current()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
-#func _input(event: InputEvent) -> void:
-	#if event is InputEventMouseMotion:
-	#	self.rotate_y(-event.relative.x * 0.005) #replace magic num with sensitivity
-	#	camera.rotate_x(-event.relative.y * 0.005)
-	#	camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
-	#	$RayCast3D.target_position = -camera.transform.basis.z * 3 # replace magic number with range
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		self.rotate_y(-event.relative.x * 0.002) #replace magic num with sensitivity
+		camera.rotate_x(-event.relative.y * 0.002)
+		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
+		$RayCast3D.target_position = -camera.transform.basis.z * 3 # replace magic number with range
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -44,7 +44,27 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("attack"):
 		if $RayCast3D.is_colliding():
-			print("hit")
-
+			if $RayCast3D.get_collider().is_in_group("character"):
+				hit_opponent.emit()
+	
+	if position.y < -70:
+		get_node("..").character_death()
 			
 	move_and_slide()
+	
+func got_hit():
+	print("PLAYTER HIT")
+	if invincible == false:
+		#change to be in direction of hit, currently allows you to negate kb if standing still
+		velocity.x = velocity.x  * -100
+		velocity.z = velocity.z  * -100
+		velocity.y = velocity.y + 3
+		invincible = true
+		#$InvincibilityTimer.start()
+	elif invincible == true:
+		pass #ignore hit
+
+
+func _on_range_area_entered(area: Area3D) -> void:
+	target = area.get_parent()
+	target.hit_opponent.connect(self.got_hit)

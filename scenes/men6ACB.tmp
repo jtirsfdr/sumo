@@ -1,0 +1,186 @@
+[gd_scene load_steps=5 format=3 uid="uid://tcx4ug3laut4"]
+
+[ext_resource type="Script" path="res://scripts/menu_manager.gd" id="1_tx3as"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="2_hfupo"]
+[ext_resource type="Script" path="res://scripts/options_menu.gd" id="2_p2ghl"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="4_vbbg7"]
+
+[node name="MenuManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tx3as")
+
+[node name="OptionsMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_p2ghl")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="OptionsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -21.5
+offset_right = 48.0
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="OptionsLabel" type="Label" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="SensitivityLabel" type="Label" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Sensitivity"
+
+[node name="SensitivityOption" type="TextEdit" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(365, 36)
+layout_mode = 2
+placeholder_text = "1"
+
+[node name="LatencyLabel" type="Label" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Simulated Latency (ms)"
+
+[node name="LatencyOption" type="TextEdit" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+placeholder_text = "50"
+
+[node name="PlayButton" type="Button" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="MainMenuButton" type="Button" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="MainMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("2_hfupo")
+
+[node name="Panel" type="PanelContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -56.5
+offset_right = 45.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SUMO"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="MainMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="MainMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="MainMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="PauseMenu" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+script = ExtResource("4_vbbg7")
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 3.15
+anchor_bottom = 3.7
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PauseLabel" type="Label" parent="PauseMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Paused"
+
+[node name="PlayButton" type="Button" parent="PauseMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="PauseMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="MainMenuButton" type="Button" parent="PauseMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[connection signal="pressed" from="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="MainMenu/Panel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainMenu/Panel/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MainMenu/Panel/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="PauseMenu/PanelContainer/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

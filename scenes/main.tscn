@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://tcx4ug3laut4" path="res://scenes/menu_manager.tscn" id="2_gf6jy"]
 [ext_resource type="PackedScene" uid="uid://d0qt88e47n5ob" path="res://scenes/world.tscn" id="3_b5usl"]
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" groups=["character"]]
 script = ExtResource("1_koi0w")
 menu_manager_tscn = ExtResource("2_gf6jy")
 world_tscn = ExtResource("3_b5usl")

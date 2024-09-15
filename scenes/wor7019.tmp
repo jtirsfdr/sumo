@@ -1,9 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0qt88e47n5ob"]
+[gd_scene load_steps=10 format=3 uid="uid://d0qt88e47n5ob"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_6dyva"]
-[ext_resource type="Script" path="res://scripts/player_spawner.gd" id="2_apoo3"]
-[ext_resource type="PackedScene" uid="uid://dkqxj5ehkkr2r" path="res://scenes/player.tscn" id="3_oa6mm"]
-[ext_resource type="PackedScene" uid="uid://dgyhysss0ag7e" path="res://scenes/enemy.tscn" id="4_oke6b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ub267"]
 sky_top_color = Color(0.65, 0.572, 0.533, 1)
@@ -62,8 +59,3 @@ mesh = SubResource("CylinderMesh_5kogj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
 shape = SubResource("CylinderShape3D_tfc6f")
-
-[node name="PlayerSpawner" type="Node3D" parent="."]
-script = ExtResource("2_apoo3")
-player_tscn = ExtResource("3_oa6mm")
-enemy_tscn = ExtResource("4_oke6b")
