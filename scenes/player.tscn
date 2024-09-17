@@ -13,7 +13,7 @@ material = SubResource("StandardMaterial3D_01u5n")
 [sub_resource type="SphereShape3D" id="SphereShape3D_3kn7q"]
 radius = 16.0
 
-[node name="Player" type="CharacterBody3D" groups=["character"]]
+[node name="Player" type="CharacterBody3D" groups=["entity"]]
 script = ExtResource("1_redm2")
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
@@ -32,4 +32,7 @@ target_position = Vector3(3, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 
+[node name="InvincibilityTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Range" to="." method="_on_range_area_entered"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

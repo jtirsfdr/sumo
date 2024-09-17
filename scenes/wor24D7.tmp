@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d0qt88e47n5ob"]
+[gd_scene load_steps=21 format=3 uid="uid://d0qt88e47n5ob"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_6dyva"]
 [ext_resource type="Script" path="res://scripts/player_spawner.gd" id="2_apoo3"]
@@ -75,9 +75,6 @@ material = SubResource("StandardMaterial3D_bo0s4")
 [sub_resource type="LabelSettings" id="LabelSettings_sqrbq"]
 font_size = 32
 
-[sub_resource type="LabelSettings" id="LabelSettings_0eln7"]
-font_size = 32
-
 [node name="World" type="Node3D"]
 script = ExtResource("1_6dyva")
 
@@ -105,11 +102,9 @@ player_tscn = ExtResource("3_oa6mm")
 enemy_tscn = ExtResource("4_oke6b")
 
 [node name="DespawnTimer" type="Timer" parent="PlayerSpawner"]
-wait_time = 4.0
-one_shot = true
 
 [node name="GameEndTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 one_shot = true
 
 [node name="WinParticles" type="Node3D" parent="."]
@@ -176,24 +171,15 @@ label_settings = SubResource("LabelSettings_sqrbq")
 [node name="LoseScreen" type="Control" parent="."]
 visible = false
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -76.0
-offset_top = -20.5
-offset_right = 76.0
-offset_bottom = 20.5
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="LoseScreen"]
-layout_mode = 1
-offset_right = 147.0
-offset_bottom = 45.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 text = "You Lose!"
-label_settings = SubResource("LabelSettings_0eln7")
 
 [connection signal="timeout" from="PlayerSpawner/DespawnTimer" to="PlayerSpawner" method="_on_despawn_timer_timeout"]
 [connection signal="timeout" from="GameEndTimer" to="." method="_on_game_end_timer_timeout"]

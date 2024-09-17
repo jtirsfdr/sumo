@@ -63,16 +63,18 @@ text = "Sensitivity"
 [node name="SensitivityOption" type="TextEdit" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(365, 36)
 layout_mode = 2
+text = "1"
 placeholder_text = "1"
 
-[node name="LatencyLabel" type="Label" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="KnockbackLabel" type="Label" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Simulated Latency (ms)"
+text = "Knockback"
 
-[node name="LatencyOption" type="TextEdit" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="KnockbackOption" type="TextEdit" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-placeholder_text = "50"
+text = "10"
+placeholder_text = "8-100 (10)"
 
 [node name="PlayButton" type="Button" parent="OptionsMenu/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

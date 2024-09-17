@@ -21,7 +21,7 @@ Data="*res://scripts/data.gd"
 
 [global_group]
 
-character=""
+entity=""
 
 [input]
 

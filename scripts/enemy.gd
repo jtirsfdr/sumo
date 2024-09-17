@@ -16,8 +16,9 @@ var speed = 3
 var invincible = false
 var random = randi_range(-1, 1)
 var cps_multiplier = randf_range(2,3)
+var already_dead = false
 var vertical_vector = Vector3(0,1,0) #used for cross product
-
+var knockback = 10
 signal hit_opponent
 
 func _ready():
@@ -53,11 +54,15 @@ func _physics_process(delta: float) -> void:
 
 	#check if opponent is hit
 	if $RayCast3D.is_colliding() == true:	
-		if $RayCast3D.get_collider().is_in_group("character"):
+		if $RayCast3D.get_collider().is_in_group("entity"):
 			hit_opponent.emit()
 		
 	if self.global_position.y < -70:
-		get_node("..").character_death()
+		if already_dead == false:
+			print("enemy dead")
+			get_node("../..").death = "enemy"
+			get_node("..").entity_death()
+			already_dead = true
 		
 	move_and_slide()
 
@@ -74,9 +79,12 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 
 func got_hit():
 	if invincible == false:
+		if get_node("../../../").find_child("KnockbackOption", true, false).text:
+			knockback = int(get_node("../../../").find_child("KnockbackOption", true, false).text)
 		#change to be in direction of hit, currently allows you to negate kb if standing still
-		velocity.x = velocity.x + aim_direction.x * -100
-		velocity.z = velocity.z + aim_direction.z * -100
+		print(aim_direction)
+		velocity.x = velocity.x + aim_direction.x * -knockback
+		velocity.z = velocity.z + aim_direction.z * -knockback
 		velocity.y = velocity.y + 3
 		invincible = true
 		$InvincibilityTimer.start()

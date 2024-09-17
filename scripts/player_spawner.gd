@@ -5,6 +5,7 @@ extends Node3D
 @export var enemy_tscn: PackedScene
 
 signal on_character_death
+signal on_game_end
 
 func spawn_two_enemies():
 	#print("PlayerSpawner spawn_two_enemies")
@@ -30,13 +31,21 @@ func spawn_player_and_enemy():
 
 
 func clear_players():
-	#print("PlayerSpawner clear_players")
+	print("PlayerSpawner clear_players")
 	for n in self.get_children():
-		self.remove_child(n)
+		if n.is_in_group("entity"):
+			self.remove_child(n)
 
-func character_death():
+func entity_death():
 	#print("PlayerSpawner character_death")
+	if get_node("..").is_game_started == true:	
+		$DespawnTimer.start()
+		on_game_end.emit()
+	else:
+		on_game_end.emit()
+
+
+func _on_despawn_timer_timeout() -> void:
+	print("despawn timer timeout")
 	clear_players()
 	on_character_death.emit()
-
-		

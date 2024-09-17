@@ -14,7 +14,7 @@ material = SubResource("StandardMaterial3D_vvkyv")
 [sub_resource type="SphereShape3D" id="SphereShape3D_ea8cr"]
 radius = 15.0
 
-[node name="Enemy" type="CharacterBody3D" groups=["character"]]
+[node name="Enemy" type="CharacterBody3D" groups=["entity"]]
 script = ExtResource("1_tclc7")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
